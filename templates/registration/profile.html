@@ -1,0 +1,17 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="container">
+    <h2>Sizning profilingiz</h2>
+    <hr>
+    <p><strong>Ism:</strong> {{ user.first_name|default:"Kiritilmagan" }}</p>
+    <p><strong>Familiya:</strong> {{ user.last_name|default:"Kiritilmagan" }}</p>
+    <p><strong>Elektron pochta:</strong> {{ user.email }}</p>
+    <p><strong>Ro'yxatdan o'tilgan sana:</strong> {{ user.date_joined|date:"d-m-Y h:i" }}</p>
+
+    <div class="mt-4">
+        <a href="{% url 'profile-update'  %}" class="btn btn-primary">Ma'lumotlarni tahrirlash</a>
+        <a href="{% url 'password-change' %}" class="btn btn-secondary">Parolni yangilash</a>
+    </div>
+</div>
+{% endblock %}

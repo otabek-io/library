@@ -1,0 +1,695 @@
+/* Book detail page styles */
+.book-detail-container {
+    padding: 20px 0;
+    background: linear-gradient(135deg, #f0f4f8 0%, #f9f7fc 100%);
+    min-height: 100vh;
+}
+
+.page-header {
+    text-align: center;
+    margin-bottom: 30px;
+    padding: 0 15px;
+}
+
+.page-title {
+    font-size: 2rem;
+    color: #2c3e50;
+    font-weight: 600;
+    margin-bottom: 15px;
+}
+
+.divider {
+    height: 3px;
+    width: 80px;
+    background: linear-gradient(90deg, #3498db, #9b59b6);
+    margin: 0 auto;
+    border-radius: 1.5px;
+}
+
+.book-detail-card {
+    max-width: 1000px;
+    margin: 0 auto 30px;
+    background: white;
+    border-radius: 15px;
+    box-shadow: 0 5px 20px rgba(0, 0, 0, 0.05);
+    padding: 25px;
+}
+
+.book-content {
+    display: grid;
+    grid-template-columns: 1fr 2fr;
+    gap: 30px;
+}
+
+.book-image-section {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.book-image-container {
+    position: relative;
+    border-radius: 12px;
+    overflow: hidden;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.08);
+    height: 300px;
+}
+
+.book-image {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.book-image-overlay {
+    position: absolute;
+    top: 15px;
+    right: 15px;
+}
+
+.book-badge {
+    background: linear-gradient(135deg, #3498db 0%, #2980b9 100%);
+    color: white;
+    padding: 6px 15px;
+    border-radius: 20px;
+    font-size: 0.8rem;
+    font-weight: 500;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+.book-actions {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+.btn-action {
+    padding: 12px 15px;
+    border: none;
+    border-radius: 10px;
+    font-size: 0.9rem;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    text-decoration: none;
+}
+
+.btn-favorite {
+    background: #ffeaea;
+    color: #e74c3c;
+    border: 1px solid #ffcccc;
+}
+
+.btn-favorite:hover {
+    background: #ffd6d6;
+}
+
+.btn-share {
+    background: #e8f5e9;
+    color: #27ae60;
+    border: 1px solid #c8e6c9;
+}
+
+.btn-share:hover {
+    background: #d5ecd7;
+}
+
+.btn-download {
+    background: #e3f2fd;
+    color: #2980b9;
+    border: 1px solid #bbdefb;
+}
+
+.btn-download:hover {
+    background: #d0e6f7;
+}
+
+/* Book info section */
+.book-info-section {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.book-header {
+    border-bottom: 1px solid #eef1f5;
+    padding-bottom: 15px;
+}
+
+.book-title {
+    font-size: 1.8rem;
+    color: #2c3e50;
+    margin-bottom: 10px;
+    font-weight: 600;
+    line-height: 1.3;
+}
+
+.book-author {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin-bottom: 15px;
+    font-size: 1rem;
+    color: #7f8c8d;
+}
+
+.book-author i {
+    color: #3498db;
+}
+
+.book-rating {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    flex-wrap: wrap;
+}
+
+.stars {
+    color: #f1c40f;
+    font-size: 1rem;
+}
+
+.rating-text {
+    color: #7f8c8d;
+    font-weight: 500;
+    font-size: 0.9rem;
+}
+
+.btn-rate {
+    background: #fff3cd;
+    color: #856404;
+    border: 1px solid #ffeaa7;
+    padding: 6px 15px;
+    border-radius: 8px;
+    cursor: pointer;
+    font-weight: 500;
+    font-size: 0.85rem;
+    transition: all 0.2s ease;
+}
+
+.btn-rate:hover {
+    background: #ffeaa7;
+}
+
+/* Book features */
+.book-features {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+    gap: 15px;
+    background: #f8f9fa;
+    padding: 15px;
+    border-radius: 10px;
+    font-size: 0.9rem;
+}
+
+.feature {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    color: #5d6d7e;
+}
+
+.feature i {
+    color: #3498db;
+    font-size: 1rem;
+    width: 20px;
+}
+
+/* Book description */
+.book-description {
+    background: #f8f9fa;
+    padding: 20px;
+    border-radius: 10px;
+}
+
+.book-description h3 {
+    color: #2c3e50;
+    margin-bottom: 15px;
+    font-size: 1.2rem;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.book-description h3 i {
+    color: #3498db;
+}
+
+#description-text {
+    color: #5d6d7e;
+    line-height: 1.6;
+    font-size: 0.95rem;
+}
+
+/* Comments section styling */
+.comments-section {
+    max-width: 1000px;
+    margin: 30px auto;
+    padding: 0 15px;
+}
+
+.comments-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 25px;
+    padding-bottom: 15px;
+    border-bottom: 2px solid #eef1f5;
+}
+
+.comments-header h2 {
+    font-size: 1.5rem;
+    color: #2c3e50;
+    font-weight: 600;
+}
+
+.comments-count {
+    background: #e3f2fd;
+    color: #2980b9;
+    padding: 5px 15px;
+    border-radius: 15px;
+    font-weight: 500;
+    font-size: 0.85rem;
+}
+
+/* Comment form container */
+.comment-form-container {
+    background: white;
+    border-radius: 12px;
+    padding: 25px;
+    margin-bottom: 30px;
+    box-shadow: 0 3px 15px rgba(0, 0, 0, 0.03);
+    border: 1px solid #eef1f5;
+}
+
+.comment-form-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+}
+
+.comment-form-header h3 {
+    color: #2c3e50;
+    font-size: 1.1rem;
+    font-weight: 600;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.comment-form-header h3 i {
+    color: #3498db;
+}
+
+/* Comment form elements */
+.form-group {
+    margin-bottom: 15px;
+    position: relative;
+}
+
+.comment-textarea-container {
+    position: relative;
+}
+
+.comment-textarea {
+    width: 100%;
+    min-height: 40px;
+    max-height: 200px;
+    padding: 10px 15px;
+    padding-right: 50px;
+    border: 1px solid #dfe6e9;
+    border-radius: 8px;
+    font-size: 0.95rem;
+    font-family: inherit;
+    transition: all 0.2s ease;
+    background: white;
+    color: #2c3e50;
+    line-height: 1.5;
+    resize: none;
+    overflow-y: hidden;
+}
+
+.comment-textarea:focus {
+    outline: none;
+    border-color: #3498db;
+    box-shadow: 0 0 0 2px rgba(52, 152, 219, 0.1);
+}
+
+.comment-textarea::placeholder {
+    color: #b2bec3;
+}
+
+/* Form button - asl holiga qaytarilgan */
+.comment-submit-btn {
+    background: #3498db;
+    color: white;
+    border: none;
+    padding: 8px 20px;
+    border-radius: 8px;
+    font-size: 0.9rem;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    float: right;
+    margin-top: 10px;
+}
+
+.comment-submit-btn:hover {
+    background: #2980b9;
+}
+
+.comment-submit-btn:disabled {
+    background: #bdc3c7;
+    cursor: not-allowed;
+}
+
+.char-count {
+    position: absolute;
+    right: 10px;
+    bottom: 10px;
+    color: #95a5a6;
+    font-size: 0.8rem;
+    background: white;
+    padding: 0 5px;
+}
+
+/* Comments list */
+.comments-list {
+    background: white;
+    border-radius: 12px;
+    padding: 25px;
+    box-shadow: 0 3px 15px rgba(0, 0, 0, 0.03);
+}
+
+.comments-list-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 20px;
+    padding-bottom: 15px;
+    border-bottom: 1px solid #eef1f5;
+}
+
+.comments-list-header h3 {
+    color: #2c3e50;
+    font-size: 1.1rem;
+    font-weight: 600;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.comments-list-header i {
+    color: #3498db;
+}
+
+.comments-sort {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.comments-sort label {
+    color: #7f8c8d;
+    font-weight: 500;
+    font-size: 0.85rem;
+}
+
+.comments-sort select {
+    padding: 6px 12px;
+    border: 1px solid #dfe6e9;
+    border-radius: 6px;
+    background: white;
+    color: #5d6d7e;
+    font-weight: 500;
+    font-size: 0.85rem;
+    transition: all 0.2s ease;
+}
+
+.comments-sort select:focus {
+    outline: none;
+    border-color: #3498db;
+}
+
+/* Single comment card */
+.comment-card {
+    background: #f8f9fa;
+    border-radius: 10px;
+    padding: 20px;
+    margin-bottom: 15px;
+    border: 1px solid #eef1f5;
+    transition: all 0.2s ease;
+}
+
+.comment-card:hover {
+    border-color: #3498db;
+}
+
+.comment-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    margin-bottom: 15px;
+}
+
+.comment-user {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.user-avatar {
+    width: 36px;
+    height: 36px;
+    background: linear-gradient(135deg, #3498db 0%, #2980b9 100%);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: white;
+    font-weight: 600;
+    font-size: 0.9rem;
+}
+
+.user-info h4 {
+    color: #2c3e50;
+    font-size: 0.95rem;
+    font-weight: 600;
+    margin-bottom: 3px;
+}
+
+.user-role {
+    display: inline-block;
+    background: #e3f2fd;
+    color: #2980b9;
+    padding: 2px 8px;
+    border-radius: 10px;
+    font-size: 0.7rem;
+    font-weight: 500;
+}
+
+.comment-meta {
+    text-align: right;
+}
+
+.comment-date {
+    display: block;
+    color: #95a5a6;
+    font-size: 0.8rem;
+    margin-bottom: 3px;
+}
+
+.comment-time {
+    display: block;
+    color: #b2bec3;
+    font-size: 0.75rem;
+}
+
+.comment-content {
+    color: #5d6d7e;
+    line-height: 1.6;
+    font-size: 0.9rem;
+    margin-bottom: 15px;
+    padding-left: 5px;
+}
+
+.comment-actions {
+    display: flex;
+    gap: 15px;
+    padding-left: 5px;
+    border-top: 1px solid #eef1f5;
+    padding-top: 10px;
+}
+
+.action-btn {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    background: none;
+    border: none;
+    color: #7f8c8d;
+    font-size: 0.8rem;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    padding: 4px 8px;
+    border-radius: 5px;
+}
+
+.action-btn:hover {
+    color: #3498db;
+    background: rgba(52, 152, 219, 0.1);
+}
+
+.action-btn.liked {
+    color: #e74c3c;
+}
+
+.action-btn.liked i {
+    color: #e74c3c;
+}
+
+/* Empty comments state */
+.empty-comments {
+    text-align: center;
+    padding: 40px 20px;
+    color: #95a5a6;
+}
+
+.empty-comments i {
+    font-size: 2.5rem;
+    color: #dfe6e9;
+    margin-bottom: 15px;
+    display: block;
+}
+
+.empty-comments h4 {
+    font-size: 1.1rem;
+    color: #7f8c8d;
+    margin-bottom: 10px;
+}
+
+.empty-comments p {
+    max-width: 400px;
+    margin: 0 auto;
+    line-height: 1.5;
+    font-size: 0.9rem;
+}
+
+/* Load more button */
+.load-more-container {
+    text-align: center;
+    margin-top: 25px;
+}
+
+.load-more-btn {
+    background: #3498db;
+    color: white;
+    border: none;
+    padding: 10px 25px;
+    border-radius: 8px;
+    font-size: 0.9rem;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.load-more-btn:hover {
+    background: #2980b9;
+}
+
+.load-more-btn:disabled {
+    background: #bdc3c7;
+    cursor: not-allowed;
+}
+
+/* Animations */
+@keyframes slideIn {
+    from {
+        opacity: 0;
+        transform: translateY(-5px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@keyframes likePop {
+    0% { transform: scale(1); }
+    50% { transform: scale(1.1); }
+    100% { transform: scale(1); }
+}
+
+/* Responsive design */
+@media (max-width: 768px) {
+    .book-content {
+        grid-template-columns: 1fr;
+        gap: 25px;
+    }
+
+    .book-image-container {
+        height: 250px;
+    }
+
+    .book-title {
+        font-size: 1.5rem;
+    }
+
+    .comment-form-container,
+    .comments-list {
+        padding: 20px 15px;
+    }
+
+    .comment-header {
+        flex-direction: column;
+        gap: 10px;
+    }
+
+    .comment-meta {
+        text-align: left;
+        width: 100%;
+    }
+
+    .comments-list-header {
+        flex-direction: column;
+        gap: 10px;
+        align-items: flex-start;
+    }
+}
+
+@media (max-width: 480px) {
+    .book-detail-card {
+        padding: 15px;
+    }
+
+    .page-title {
+        font-size: 1.6rem;
+    }
+
+    .book-features {
+        grid-template-columns: 1fr;
+    }
+
+    .comment-user {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 8px;
+    }
+
+    .comment-actions {
+        flex-wrap: wrap;
+    }
+
+    .action-btn {
+        font-size: 0.75rem;
+    }
+}

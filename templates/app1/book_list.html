@@ -1,0 +1,117 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block content %}
+    <main>
+        <!-- Hero qismi -->
+
+        <section>
+            <form method="get" class="d-flex gap-2">
+                <select name="category" class="form-select w-auto">
+                    <option value="">Barcha kategoriyalar</option>
+                    {% for cat in category %}
+                        <option value="{{ cat.id }} {% if request.GET.category == cat.id|stringformat:"i" %}selected{% endif %}">
+                            {{ cat.name }}
+                        </option>
+                    {% endfor %}
+                </select>
+                <button type="submit">Qidirish</button>
+            </form>
+        </section>
+        <!-- Kitoblar galereyasi -->
+        <section class="books-section">
+            <div class="container">
+                <div class="section-header">
+                    <h2>Kitoblar Kolleksiyasi</h2>
+                    <div class="view-controls">
+                        <button class="view-btn active" data-view="grid">
+                            <i class="fas fa-th"></i>
+                        </button>
+                        <button class="view-btn" data-view="list">
+                            <i class="fas fa-list"></i>
+                        </button>
+                        {% if user.is_staff %}
+                            <a href="{% url 'book-create' %}" class="button">yangi</a>
+                        {% endif %}
+                    </div>
+                </div>
+
+                <div class="books-container grid-view" id="books-container">
+                    {% for book in book_list %}
+                        <div class="book-card">
+                            <a href="{% url 'book-detail' book.pk %}" class="book-link">
+                                <div class="book-image">
+                                    <img src="{{ book.image.url }}" alt="{{ book.name }}" loading="lazy">
+                                    <div class="book-badge">
+                                        <button hx-post="{% url 'book_like' book.pk %}" hx-target="#like-section" hx-swap="outerHTML">
+                                            {% if user_liked %} ❤️ {% else %} 🤍 {% endif %}
+                                        </button>
+                                    </div>
+                                </div>
+                                <div class="book-content">
+                                    <h3 class="book-title">{{ book.name }}</h3>
+                                    <div class="book-meta">
+                                        <span class="author"><i class="fas fa-user-pen"></i> Muallif {{ book.author }}</span>
+                                        <span class="rating">
+                                            <i class="fas fa-star"></i>
+                                            <span>4.5</span>
+                                        </span>
+                                    </div>
+                                    <p class="book-description">{{ book.description | truncatewords:15 }}</p>
+                                    <div class="book-footer">
+                                        <span class="category">Roman</span>
+                                        <button class="favorite-btn">
+                                            <i class="far fa-heart"></i>
+                                        </button>
+                                    </div>
+                                </div>
+                            </a>
+                        </div>
+                    {% endfor %}
+                </div>
+
+                <!-- Pagination -->
+                <div class="pagination">
+                    {% if page_obj.has_previous %}
+                        <a href="?page={{ page_obj.previous_page_number }}" class="page-btn prev"><i class="fas fa-chevron-left"></i></a>
+                        <a href="?page=1" class="page-btn active">1</a>
+                    {% endif %}
+                    <span class="current">
+                        Sahifa {{ page_obj.number }} / {{ page_obj.paginator.num_pages }}
+                    </span>
+                    {% if page_obj.has_next %}
+                        <a href="?page={{ page_obj.next_page_number }}" class="page-btn next"><i class="fas fa-chevron-right"></i></a>
+                    {% endif %}
+                </div>
+            </div>
+        </section>
+
+        <!-- Statistika -->
+        <section class="stats-section">
+            <div class="container">
+                <div class="stats-grid">
+                    <div class="stat-card">
+                        <i class="fas fa-book"></i>
+                        <h3>1000+</h3>
+                        <p>Kitoblar</p>
+                    </div>
+                    <div class="stat-card">
+                        <i class="fas fa-users"></i>
+                        <h3>5000+</h3>
+                        <p>Kitobxonlar</p>
+                    </div>
+                    <div class="stat-card">
+                        <i class="fas fa-star"></i>
+                        <h3>4.8</h3>
+                        <p>O'rtacha Reyting</p>
+                    </div>
+                    <div class="stat-card">
+                        <i class="fas fa-tags"></i>
+                        <h3>50+</h3>
+                        <p>Kategoriyalar</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+    <script src="{% static 'app1/js/book_list.js' %}"></script>
+{% endblock content %}
