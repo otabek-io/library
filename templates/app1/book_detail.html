@@ -22,9 +22,11 @@
 
                     <!-- Kitob harakatlari (actions) -->
                     <div class="book-actions">
-                        <button class="btn-action btn-favorite" id="add-to-favorites">
-                            <i class="fas fa-heart"></i> Sevimlilar
-                        </button>
+                        <form method="post">{% csrf_token %}
+                            <button type="submit" name="submit_favorites" class="btn-action btn-favorite" id="add-to-favorites">
+                                <i class="fas fa-heart"></i> Sevimlilar
+                            </button>
+                        </form>
                         <button class="btn-action btn-share" id="share-book">
                             <i class="fas fa-share-alt"></i> Ulashish
                         </button>

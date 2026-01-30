@@ -1,107 +1,266 @@
-// Ko'rinishni o'zgartirish (grid/list)
 document.addEventListener('DOMContentLoaded', function() {
-    const viewButtons = document.querySelectorAll('.view-btn');
+    // Initialize AOS (Animate On Scroll)
+    if (typeof AOS !== 'undefined') {
+        AOS.init({
+            duration: 800,
+            easing: 'ease-out',
+            once: true,
+            offset: 100
+        });
+    }
+
+    // View Toggle (Grid/List)
+    const viewBtns = document.querySelectorAll('.view-btn');
     const booksContainer = document.getElementById('books-container');
 
-    viewButtons.forEach(button => {
-        button.addEventListener('click', function() {
-            // Faol tugmani o'zgartirish
-            viewButtons.forEach(btn => btn.classList.remove('active'));
+    viewBtns.forEach(btn => {
+        btn.addEventListener('click', function() {
+            const view = this.dataset.view;
+
+            // Remove active class from all buttons
+            viewBtns.forEach(b => b.classList.remove('active'));
+
+            // Add active class to clicked button
             this.classList.add('active');
 
-            // Ko'rinishni o'zgartirish
-            const viewType = this.getAttribute('data-view');
-            booksContainer.classList.remove('grid-view', 'list-view');
-            booksContainer.classList.add(`${viewType}-view`);
+            // Update container view
+            if (view === 'grid') {
+                booksContainer.classList.remove('list-view');
+                booksContainer.classList.add('grid-view');
+            } else {
+                booksContainer.classList.remove('grid-view');
+                booksContainer.classList.add('list-view');
+            }
 
-            // Ko'rinishni localStorage ga saqlash
-            localStorage.setItem('bookView', viewType);
+            // Save preference to localStorage
+            localStorage.setItem('booksView', view);
         });
     });
 
-    // Oldingi ko'rinishni yuklash
-    const savedView = localStorage.getItem('bookView');
+    // Load saved view preference
+    const savedView = localStorage.getItem('booksView');
     if (savedView) {
-        const activeBtn = document.querySelector(`.view-btn[data-view="${savedView}"]`);
-        if (activeBtn) {
-            viewButtons.forEach(btn => btn.classList.remove('active'));
-            activeBtn.classList.add('active');
-            booksContainer.classList.remove('grid-view', 'list-view');
-            booksContainer.classList.add(`${savedView}-view`);
+        const targetBtn = document.querySelector(`.view-btn[data-view="${savedView}"]`);
+        if (targetBtn) {
+            targetBtn.click();
         }
     }
 
-    // Sevimlilarga qo'shish
-    const favoriteButtons = document.querySelectorAll('.favorite-btn');
+    // Favorite Button Functionality
+    const favoriteBtns = document.querySelectorAll('.favorite-btn-main');
 
-    favoriteButtons.forEach(button => {
-        button.addEventListener('click', function(e) {
+    favoriteBtns.forEach(btn => {
+        btn.addEventListener('click', function(e) {
             e.preventDefault();
             e.stopPropagation();
 
-            const icon = this.querySelector('i');
-            if (icon.classList.contains('far')) {
-                icon.classList.remove('far');
-                icon.classList.add('fas');
-                this.style.color = '#e74c3c';
+            const bookId = this.dataset.id;
+            const url = this.dataset.url;
+            const heartIcon = this.querySelector('svg');
 
-                // Animation
-                this.style.transform = 'scale(1.5)';
-                setTimeout(() => {
-                    this.style.transform = 'scale(1)';
-                }, 300);
-            } else {
-                icon.classList.remove('fas');
-                icon.classList.add('far');
-                this.style.color = '';
-            }
+            // Toggle filled class
+            heartIcon.classList.toggle('filled');
+
+            // Animate button
+            this.style.transform = 'scale(1.2)';
+            setTimeout(() => {
+                this.style.transform = 'scale(1)';
+            }, 200);
+
+            // Here you would make an AJAX call to like/unlike the book
+            // For now, we'll just toggle the visual state
+            console.log('Book ' + bookId + ' favorite toggled');
         });
     });
 
-    // Kitob kartalariga hover effekti
+    // Smooth Scroll to Books Section
+    const filterForm = document.querySelector('.filter-form');
+    if (filterForm) {
+        filterForm.addEventListener('submit', function(e) {
+            setTimeout(() => {
+                const booksSection = document.querySelector('.books-section');
+                if (booksSection) {
+                    booksSection.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                }
+            }, 100);
+        });
+    }
+
+    // Animated Counter for Statistics
+    function animateCounter(element) {
+        const target = parseFloat(element.dataset.count);
+        const duration = 2000;
+        const increment = target / (duration / 16);
+        let current = 0;
+
+        const isDecimal = target % 1 !== 0;
+
+        const timer = setInterval(() => {
+            current += increment;
+            if (current >= target) {
+                element.textContent = isDecimal ? target.toFixed(1) : Math.floor(target) + '+';
+                clearInterval(timer);
+            } else {
+                element.textContent = isDecimal ? current.toFixed(1) : Math.floor(current) + '+';
+            }
+        }, 16);
+    }
+
+    // Intersection Observer for Stats Animation
+    const statNumbers = document.querySelectorAll('.stat-number');
+    const statsObserver = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting && !entry.target.classList.contains('animated')) {
+                entry.target.classList.add('animated');
+                animateCounter(entry.target);
+            }
+        });
+    }, { threshold: 0.5 });
+
+    statNumbers.forEach(stat => {
+        statsObserver.observe(stat);
+    });
+
+    // Book Card Hover Effect Enhancement
     const bookCards = document.querySelectorAll('.book-card');
 
     bookCards.forEach(card => {
         card.addEventListener('mouseenter', function() {
-            const image = this.querySelector('img');
-            image.style.transform = 'scale(1.05)';
+            this.style.zIndex = '10';
         });
 
         card.addEventListener('mouseleave', function() {
-            const image = this.querySelector('img');
-            image.style.transform = 'scale(1)';
+            this.style.zIndex = '1';
         });
     });
 
-    // Pagination tugmalari
-    const pageButtons = document.querySelectorAll('.page-btn:not(.prev):not(.next)');
+    // Image Lazy Loading Fallback
+    const images = document.querySelectorAll('.book-image[loading="lazy"]');
 
-    pageButtons.forEach(button => {
-        button.addEventListener('click', function(e) {
-            e.preventDefault();
+    if ('IntersectionObserver' in window) {
+        const imageObserver = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    const img = entry.target;
+                    img.src = img.dataset.src || img.src;
+                    img.classList.add('loaded');
+                    imageObserver.unobserve(img);
+                }
+            });
+        });
 
-            pageButtons.forEach(btn => btn.classList.remove('active'));
-            this.classList.add('active');
+        images.forEach(img => imageObserver.observe(img));
+    }
+
+    // Pagination Smooth Scroll
+    const paginationLinks = document.querySelectorAll('.page-btn');
+
+    paginationLinks.forEach(link => {
+        link.addEventListener('click', function(e) {
+            setTimeout(() => {
+                window.scrollTo({ top: 0, behavior: 'smooth' });
+            }, 100);
         });
     });
 
-    // Search funksiyasi (demo)
-    const searchInput = document.querySelector('.search-box input');
-    const searchBtn = document.querySelector('.search-btn');
-
-    if (searchBtn) {
-        searchBtn.addEventListener('click', function() {
-            const query = searchInput.value.trim();
-            if (query) {
-                alert(`"${query}" so'zi bo'yicha qidiruv natijalari (demo)`);
-                // Bu yerda haqiqiy qidiruv logikasi bo'ladi
+    // Handle Like Button HTMX Response
+    document.body.addEventListener('htmx:afterSwap', function(event) {
+        if (event.detail.target.id && event.detail.target.id.startsWith('like-section-')) {
+            const likeBtn = event.detail.target.closest('.book-badge-wrapper').querySelector('.like-btn');
+            if (likeBtn) {
+                likeBtn.style.transform = 'scale(1.2)';
+                setTimeout(() => {
+                    likeBtn.style.transform = 'scale(1)';
+                }, 300);
             }
-        });
+        }
+    });
 
-        searchInput.addEventListener('keypress', function(e) {
-            if (e.key === 'Enter') {
-                searchBtn.click();
-            }
+    // Category Select Enhancement
+    const categorySelect = document.querySelector('.category-select');
+    if (categorySelect) {
+        categorySelect.addEventListener('change', function() {
+            this.style.borderColor = '#667eea';
+            setTimeout(() => {
+                this.style.borderColor = '';
+            }, 300);
         });
     }
+
+    // Add scroll reveal animation for book cards
+    const revealObserver = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                entry.target.style.opacity = '1';
+                entry.target.style.transform = 'translateY(0)';
+            }
+        });
+    }, { threshold: 0.1 });
+
+    bookCards.forEach(card => {
+        card.style.opacity = '0';
+        card.style.transform = 'translateY(30px)';
+        card.style.transition = 'opacity 0.6s ease, transform 0.6s ease';
+        revealObserver.observe(card);
+    });
+
+    // Prevent context menu on images
+    const bookImages = document.querySelectorAll('.book-image');
+    bookImages.forEach(img => {
+        img.addEventListener('contextmenu', e => e.preventDefault());
+    });
+
+    // Add ripple effect to buttons
+    function createRipple(event) {
+        const button = event.currentTarget;
+        const circle = document.createElement('span');
+        const diameter = Math.max(button.clientWidth, button.clientHeight);
+        const radius = diameter / 2;
+
+        circle.style.width = circle.style.height = `${diameter}px`;
+        circle.style.left = `${event.clientX - button.offsetLeft - radius}px`;
+        circle.style.top = `${event.clientY - button.offsetTop - radius}px`;
+        circle.classList.add('ripple');
+
+        const ripple = button.getElementsByClassName('ripple')[0];
+        if (ripple) {
+            ripple.remove();
+        }
+
+        button.appendChild(circle);
+    }
+
+    const buttons = document.querySelectorAll('.filter-btn, .add-book-btn, .page-btn');
+    buttons.forEach(button => {
+        button.addEventListener('click', createRipple);
+    });
+
+    // Add CSS for ripple effect
+    const style = document.createElement('style');
+    style.textContent = `
+        .ripple {
+            position: absolute;
+            border-radius: 50%;
+            background-color: rgba(255, 255, 255, 0.6);
+            width: 100px;
+            height: 100px;
+            animation: ripple-animation 0.6s;
+            pointer-events: none;
+        }
+
+        @keyframes ripple-animation {
+            to {
+                transform: scale(4);
+                opacity: 0;
+            }
+        }
+
+        button {
+            position: relative;
+            overflow: hidden;
+        }
+    `;
+    document.head.appendChild(style);
+
+    console.log('Book List JS initialized successfully!');
 });

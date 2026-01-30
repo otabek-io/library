@@ -2,6 +2,7 @@
 @import "book_detail.css";
 @import "messages.css";
 @import "base.css";
+@import "register.css";
 
 .button {
   --primary: #ff5569; /* Accent color */

@@ -1,0 +1,31 @@
+<div class="soft-box">
+  <input type="text" placeholder="Qidiruv..." class="soft-input">
+</div>
+<style>
+body { background-color: #e0e5ec; display: flex; justify-content: center; padding-top: 50px; }
+
+.soft-box {
+  padding: 20px;
+}
+
+.soft-input {
+  width: 250px;
+  padding: 15px;
+  border: none;
+  outline: none;
+  border-radius: 30px;
+  background: #e0e5ec;
+  font-family: sans-serif;
+
+  /* Neumorphism soyalari */
+  box-shadow: 9px 9px 16px rgb(163,177,198,0.6),
+              -9px -9px 16px rgba(255,255,255, 0.5);
+  color: #4d4d4d;
+}
+
+.soft-input:focus {
+  /* Bosilganda ichkariga kirish effekti */
+  box-shadow: inset 6px 6px 10px 0 rgba(163,177,198, 0.7),
+              inset -6px -6px 10px 0 rgba(255,255,255, 0.8);
+}
+</style>

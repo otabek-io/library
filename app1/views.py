@@ -6,6 +6,7 @@ from django.views.generic.edit import FormMixin
 from .forms import BookCreateForm, CommentForm
 from app1.models import Book, Category, Rating, Comment
 from django.db.models import Q, Avg, Count
+from django.shortcuts import get_object_or_404
 
 
 class BookListView(ListView):
@@ -13,44 +14,25 @@ class BookListView(ListView):
     context_object_name = 'book_list'
     template_name = 'app1/book_list.html'
     paginate_by = 10
+
     def get_queryset(self):
         query = self.request.GET.get('q')
         category_id = self.request.GET.get('category')
-        result = Book.objects.select_related('category').all()
+        result = Book.objects.select_related('category').annotate(total_likes=Count('likes')).distinct()
 
         if category_id:
             result = result.filter(category__id=category_id)
         if query:
             result = result.filter(Q(name__icontains=query) | Q(result.filter(author__icontains=query)))
 
-        return result.distinct(), Book.objects.annotate(total_likes=Count('likes')).distinct()
+        return result
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         context['category'] = Category.objects.all()
+        context['avg_rating'] = Rating.objects.aggregate(Avg('stars'))['stars__avg'] or 0
 
-        if self.request.user.is_authenticated:
-            context['user_liked'] = self.object.likes.filter(id=self.request.user.id).exists()
-        else:
-            redirect('login')
         return context
-
-    def post(self, request, *args, **kwargs):
-        self.object = self.get_object()
-        if "submit_like" in request.POST:
-            user=request.user
-            if self.object.likes.filter(id=user.id).exists():
-                self.object.likes.remove(user)
-                liked = False
-            else:
-                self.object.likes.add(user)
-                liked = True
-            if request.headers.get('HX-Request'):
-                context = {
-                    'book' : self.object,
-                    'user_liked' : liked,
-                }
-        return redirect('book-list')
 
 
 class BookDetailView(DetailView,FormMixin):
@@ -60,6 +42,10 @@ class BookDetailView(DetailView,FormMixin):
     form_class = CommentForm
 
     def post(self, request, *args, **kwargs):
+
+        if not request.user.is_authenticated:
+            return redirect('login')
+
         self.object = self.get_object()
 
         if "stars" in request.POST and "submit_rating" in request.POST:
@@ -101,12 +87,6 @@ class BookCreateView(CreateView):
         form.instance.creator = self.request.user
         return super().form_valid(form)
 
-    def form_invalid(self, form):
-        print("---------------------------------")
-        print("FORMA XATOLIKLARI:", form.errors.as_data())
-        print("---------------------------------")
-        return super().form_invalid(form)
-
 def add_category(request):
     if request.method == 'POST':
         name = request.POST.get('name')
@@ -123,3 +103,29 @@ class CommentDeleteView(DeleteView):
 
     def get_success_url(self):
         return reverse_lazy('book-detail', kwargs={'pk': self.object.book.id})
+
+
+class BookLikeView(View):
+    model = Book
+    context_object_name = 'book_like'
+
+    def post(self, request, *args, **kwargs):
+
+        book = get_object_or_404(Book, pk=kwargs['pk'])
+        user = request.user
+
+        if not request.user.is_authenticated:
+            return JsonResponse({'error': 'Login talab qilinadi'}, status=401)
+
+        if book.likes.filter(id=user.id).exists():
+            book.likes.remove(user)
+            liked = False
+        else:
+            book.likes.add(user)
+            liked = True
+
+        return JsonResponse({
+            'liked': liked,
+            'likes_count': book.likes.count(),
+            'book_id': book.pk
+        })

@@ -1,10 +1,25 @@
 {% extends 'base.html' %}
-{% block content %}
-    <main>
-        <form method="post">{% csrf_token %}
-            {{ form }}
-            <button type="submit">Kirish</button>
-        </form>
 
-    </main>
+{% block content %}
+<div class="form-container">
+    <form class="form" method="post" id="loginForm">{% csrf_token %}
+        <p class="title">Kirish</p>
+        <p class="message">Hisobingizga kirish uchun ma'lumotlarni kiriting.</p>
+
+        <label>
+            <input required placeholder=" " name="username" type="email" class="input" autocomplete="email">
+            <span>Email manzil</span>
+        </label>
+
+        <label>
+            <input required placeholder=" " name="password" type="password" class="input" autocomplete="new-password">
+            <span>Parol</span>
+            <button type="button" class="password-toggle">👁</button>
+        </label>
+
+        <button type="submit" class="submit">Kirish</button>
+        <p class="signin">Hisobingiz yo'qmi? <a href="{% url 'signup' %}">Ro'yxatdan o'tish</a></p>
+    </form>
+</div>
+
 {% endblock content %}

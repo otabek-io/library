@@ -1,7 +1,49 @@
 {% extends 'base.html' %}
 {% block content %}
-    <form method="post">{% csrf_token %}
-        {{ form }}
-        <button type="submit">Ro'yxatdan o'tish</button>
-    </form>
+    <main class="main_login">
+        <div class="form-container">
+            <form class="form" method="post" autocomplete="off" id="registerForm">{% csrf_token %}
+                <p class="title"><span class="title-text">Register</span></p>
+                <p class="message">Imkoniyatlardan to'liq foydalanish uchun ro'yxatdan o'ting.</p>
+
+                <div class="flex">
+                    <label>
+                        <input name="first_name" required placeholder=" " type="text" class="input"
+                               autocomplete="given-name">
+                        <span class="floating-label">Ism</span>
+                    </label>
+
+                    <label>
+                        <input name="last_name" required placeholder=" " type="text" class="input"
+                               autocomplete="family-name">
+                        <span class="floating-label">Familiya</span>
+                    </label>
+                </div>
+
+                <label>
+                    <input name="email" required placeholder=" " type="email" class="input" autocomplete="email">
+                    <span class="floating-label">Email manzili</span>
+                </label>
+
+                <label>
+                    <input name="password1" required placeholder=" " type="password" class="input password-input"
+                           id="password1" autocomplete="new-password">
+                    <span class="floating-label">Parol</span>
+                    <button type="button" class="password-toggle" aria-label="Show password">👁</button>
+                </label>
+
+                <label>
+                    <input name="password2" required placeholder=" " type="password" class="input password-input"
+                           id="password2" autocomplete="new-password">
+                    <span class="floating-label">Parolni takrorlang</span>
+                    <button type="button" class="password-toggle" aria-label="Show password">👁</button>
+                    <div class="error-message" id="passwordError" style="display: none;">Parollar mos kelmadi</div>
+                </label>
+
+                <button type="submit" class="submit">Ro'yxatdan o'tish</button>
+                <p class="signin">Akkauntingiz allaqachon bormi? <a href="{% url 'login' %}">Log In</a></p>
+            </form>
+        </div>
+    </main>
+
 {% endblock content %}

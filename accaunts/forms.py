@@ -12,38 +12,39 @@ class CustomUserCreateForm(UserCreationForm):
             }
         }
 
-        def save(self, commit=True):
-            user = super().save(commit=False)
-            user.username = user.email
-            if commit:
-                user.save()
-            return user
+    def save(self, commit=True):
+        user = super().save(commit=False)
+        user.username = user.email
+        if commit:
+            user.save()
+        return user
+
     first_name = forms.CharField(
         label='Ism',
         widget=forms.TextInput(attrs={
-            'class': 'form-control',
+            'class': 'input',
             'placeholder': 'First Name',
         })
     )
     last_name = forms.CharField(
         label='Familiya',
         widget=forms.TextInput(attrs={
-            'class': 'form-control',
+            'class': 'input',
             'placeholder': 'Last Name',
         })
     )
     email = forms.EmailField(
         label='Elektron pochta',
         widget=forms.EmailInput(attrs={
-            'class': 'form-control',
+            'class': 'input',
             'placeholder': 'Email',
-
+            'autocomplete': 'off',
         })
     )
     password1 = forms.CharField(
         label='Parol',
         widget=forms.PasswordInput(attrs={
-            'class': 'form-control',
+            'class': 'input',
             'placeholder': 'Password',
             'autocomplete': 'off',
         })
@@ -51,7 +52,7 @@ class CustomUserCreateForm(UserCreationForm):
     password2 = forms.CharField(
         label='Parolni takrorlang',
         widget=forms.PasswordInput(attrs={
-            'class': 'form-control',
+            'class': 'input',
             'placeholder': 'Repeat Password',
             'autocomplete': 'off',
         })
@@ -64,6 +65,7 @@ class LoginForm(AuthenticationForm):
         widget = forms.EmailInput(attrs={
             'class': 'form-control',
             'placeholder': 'Elektron pochta kiriting',
+
         })
     )
     password = forms.CharField(
