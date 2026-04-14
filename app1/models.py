@@ -8,7 +8,7 @@ from django.db.models import Avg
 
 
 class Category(models.Model):
-    name = models.CharField(max_length=100)
+    name = models.CharField(max_length=100, default='tanla')
     def __str__(self):
         return self.name
     class Meta:

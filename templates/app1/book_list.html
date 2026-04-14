@@ -106,7 +106,7 @@
 <!--                                        <i class="fas fa-trash-alt"></i>-->
 <!--                                    </a>-->
                                     <form method="post" action="{% url 'book-delete' book.pk %}">{% csrf_token %}
-                                        <button type="submit"  class="btn-icon btn-delete" title="O'chirish" onclick="Ochirilsinmi?"><i class="fas fa-trash-alt"></i></button>
+                                        <button type="submit"  class="btn-icon btn-delete" title="O'chirish" onclick="return confirm('Haqiqatan ham ushbu kitobni o\'chirmoqchimisiz?');"><i class="fas fa-trash-alt"></i></button>
                                     </form>
                                 </div>
                             {% endif %}

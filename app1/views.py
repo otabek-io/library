@@ -3,7 +3,7 @@ from django.shortcuts import redirect
 from django.urls import reverse_lazy
 from django.views.generic import ListView, DetailView, CreateView, View, DeleteView, TemplateView, UpdateView
 from django.views.generic.edit import FormMixin
-from .forms import BookCreateForm, CommentForm
+from .forms import BookCreateForm, CommentForm, BookUpdateForm
 from app1.models import Book, Category, Rating, Comment
 from django.db.models import Q, Avg, Count
 from django.shortcuts import get_object_or_404
@@ -101,10 +101,6 @@ class BookCreateView(CreateView):
         form.instance.creator = self.request.user
         return super().form_valid(form)
 
-    def form_invalid(self, form):
-        print("Formada xatolik bor:", form.errors)
-        return super().form_invalid(form)
-
 class BookDeleteView(DeleteView):
     model = Book
     success_url = reverse_lazy('book-list')
@@ -114,9 +110,10 @@ class BookDeleteView(DeleteView):
 
 class BookUpdateView(UpdateView):
     model = Book
-    form_class = BookCreateForm
+    form_class = BookUpdateForm
     template_name = 'app1/book_update.html'
     success_url = reverse_lazy('book-list')
+
     def form_valid(self, form):
         form.instance.creator = self.request.user
         return super().form_valid(form)
