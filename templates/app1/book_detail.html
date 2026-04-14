@@ -42,9 +42,15 @@
                         <button class="btn-action btn-share" id="share-book">
                             <i class="fas fa-share-alt"></i> Ulashish
                         </button>
-                        <a href="{{ book.book_file.url }}" class="btn-action btn-download" id="download-book">
-                            <i class="fas fa-download"></i>Yuklab olish
-                        </a>
+                        {% if book.book_file %}
+                            <a href="{{ book.book_file.url }}" class="btn-action btn-download" id="download-book">
+                                <i class="fas fa-download"></i>Yuklab olish
+                            </a>
+                        {% else %}
+                            <a href="{{ book.url }}" class="btn-action btn-download" id="download-book">
+                                <i class="fas fa-download"></i>Yuklab olish
+                            </a>
+                        {% endif %}
                     </div>
                 </div>
 

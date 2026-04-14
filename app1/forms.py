@@ -7,6 +7,20 @@ class BookCreateForm(forms.ModelForm):
         model = Book
         fields = ['name','author', 'category', 'description', 'image', 'book_file', 'url']
 
+        error_messages = {
+            'book_file': {
+                'required': "Kitob faylini yuklang.",
+                'invalid_extension': "Kechirasiz, faqat .pdf, .doc, .docx, .txt formatlari qabul qilinadi.",
+            },
+            'title': {
+                'required': "Kitob nomini kiritish majburiy.",
+            },
+            'image': {
+                'required': "Kitob rasmini yuklang.",
+                'invalid_extension': "Faqat rasm yuklang!",
+            }
+        }
+
         widgets = {
             'name': forms.TextInput(attrs={'class': 'form-control'}),
             'author': forms.TextInput(attrs={'class': 'form-control'}),

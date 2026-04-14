@@ -99,12 +99,15 @@
 
                             {% if user.is_staff %}
                                 <div class="book-actions">
-                                    <a href="#" class="btn-icon btn-edit" title="Tahrirlash">
+                                    <a href="{% url 'book-update' book.pk %}" class="btn-icon btn-edit" title="Tahrirlash">
                                         <i class="fas fa-edit"></i>
                                     </a>
-                                    <a href="#" class="btn-icon btn-delete" title="O'chirish">
-                                        <i class="fas fa-trash-alt"></i>
-                                    </a>
+<!--                                    <a href="{% url 'book-delete' book.pk %}" class="btn-icon btn-delete" title="O'chirish" onclick="O'chirilsinmi?">-->
+<!--                                        <i class="fas fa-trash-alt"></i>-->
+<!--                                    </a>-->
+                                    <form method="post" action="{% url 'book-delete' book.pk %}">{% csrf_token %}
+                                        <button type="submit"  class="btn-icon btn-delete" title="O'chirish" onclick="Ochirilsinmi?"><i class="fas fa-trash-alt"></i></button>
+                                    </form>
                                 </div>
                             {% endif %}
                         </div>

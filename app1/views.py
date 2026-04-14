@@ -1,7 +1,7 @@
 from django.http import JsonResponse
 from django.shortcuts import redirect
 from django.urls import reverse_lazy
-from django.views.generic import ListView, DetailView, CreateView, View, DeleteView, TemplateView
+from django.views.generic import ListView, DetailView, CreateView, View, DeleteView, TemplateView, UpdateView
 from django.views.generic.edit import FormMixin
 from .forms import BookCreateForm, CommentForm
 from app1.models import Book, Category, Rating, Comment
@@ -100,6 +100,27 @@ class BookCreateView(CreateView):
     def form_valid(self, form):
         form.instance.creator = self.request.user
         return super().form_valid(form)
+
+    def form_invalid(self, form):
+        print("Formada xatolik bor:", form.errors)
+        return super().form_invalid(form)
+
+class BookDeleteView(DeleteView):
+    model = Book
+    success_url = reverse_lazy('book-list')
+
+    def get(self, request, *args, **kwargs):
+        return self.post(request, *args, **kwargs)
+
+class BookUpdateView(UpdateView):
+    model = Book
+    form_class = BookCreateForm
+    template_name = 'app1/book_update.html'
+    success_url = reverse_lazy('book-list')
+    def form_valid(self, form):
+        form.instance.creator = self.request.user
+        return super().form_valid(form)
+
 
 def add_category(request):
     if request.method == 'POST':
