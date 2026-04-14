@@ -3,13 +3,22 @@ document.addEventListener('DOMContentLoaded', function() {
     // Password toggle functionality
     document.querySelectorAll('.password-toggle').forEach(toggle => {
         toggle.addEventListener('click', function() {
-            const input = this.parentElement.querySelector('.password-input');
-            const type = input.getAttribute('type') === 'password' ? 'text' : 'password';
-            input.setAttribute('type', type);
-            this.textContent = type === 'password' ? '👁' : '🔒';
+            const input = this.parentElement.querySelector('.input');
+            const icon = this.querySelector('i');
+
+            if (input) {
+                const type = input.getAttribute('type') === 'password' ? 'text' : 'password';
+                input.setAttribute('type', type);
+                this.classList.toggle('is-visible', type === 'text');
+                if (icon) {
+                    icon.classList.toggle('fa-eye', type === 'password');
+                    icon.classList.toggle('fa-eye-slash', type === 'text');
+                }
+
+                input.focus();
+            }
         });
     });
-
     // Fix for autofilled inputs on page load
     setTimeout(() => {
         document.querySelectorAll('.input').forEach(input => {

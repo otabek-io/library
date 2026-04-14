@@ -293,20 +293,32 @@
 /* Password visibility toggle */
 .password-toggle {
   position: absolute;
-  right: 16px;
+  right: 10px;
   top: 50%;
   transform: translateY(-50%);
-  background: none;
-  border: none;
-  color: #8a94a6;
+  background: #eef2ff;
+  border: 1px solid #dbeafe;
+  color: #3b82f6;
   cursor: pointer;
-  font-size: 18px;
-  padding: 4px;
-  transition: color 0.3s ease;
+  width: 34px;
+  height: 34px;
+  border-radius: 10px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 14px;
+  transition: all 0.2s ease;
+  z-index: 10;
 }
 
 .password-toggle:hover {
-  color: #4a6cf7;
+  background: #dbeafe;
+  color: #1d4ed8;
+}
+
+.password-toggle.is-visible {
+  background: #dbeafe;
+  color: #1d4ed8;
 }
 
 /* Responsive adjustments */
@@ -343,4 +355,20 @@
 
 @keyframes spin {
   to { transform: rotate(360deg); }
+}
+
+/* register.css uchun */
+@media (max-width: 500px) {
+    .form-container, .auth-wrapper {
+        padding: 20px 10px !important;
+    }
+
+    .form, .auth-card {
+        padding: 25px 20px !important;
+        border-radius: 15px !important;
+    }
+
+    .form-title, .auth-header h2 {
+        font-size: 1.2rem !important;
+    }
 }

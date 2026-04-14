@@ -5,7 +5,7 @@ from app1.models import Book, Comment, Rating
 class BookCreateForm(forms.ModelForm):
     class Meta:
         model = Book
-        fields = ['name','author', 'category', 'description', 'image', 'book_file']
+        fields = ['name','author', 'category', 'description', 'image', 'book_file', 'url']
 
         widgets = {
             'name': forms.TextInput(attrs={'class': 'form-control'}),
@@ -14,6 +14,7 @@ class BookCreateForm(forms.ModelForm):
             'description': forms.Textarea(attrs={'class': 'form-control'}),
             'image': forms.FileInput(attrs={'class': 'form-control'}),
             'book_file': forms.FileInput(attrs={'class': 'form-control'}),
+            'url': forms.URLInput(attrs={'class': 'form-control'}),
         }
 class CommentForm(forms.ModelForm):
     class Meta:

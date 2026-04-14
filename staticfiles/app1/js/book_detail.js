@@ -290,3 +290,12 @@ document.addEventListener('DOMContentLoaded', function() {
         }, 3000);
     }
 });
+
+document.querySelectorAll('.stars-input input').forEach(radio => {
+    radio.addEventListener('change', function() {
+        // Formani yuborishdan oldin biroz vizual effekt berish mumkin
+        const parent = this.closest('.stars-input');
+        parent.style.opacity = '0.5';
+        parent.style.pointerEvents = 'none';
+    });
+});

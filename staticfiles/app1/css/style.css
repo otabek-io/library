@@ -3,6 +3,7 @@
 @import "messages.css";
 @import "base.css";
 @import "register.css";
+@import "mobile_responsive.css";
 
 .button {
   --primary: #ff5569; /* Accent color */

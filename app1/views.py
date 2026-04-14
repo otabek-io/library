@@ -150,7 +150,7 @@ class FavouriteBookView(ListView):
     context_object_name = 'favourite_books'
 
     def get_queryset(self):
-        print(self.request.user.favourites.all())
+        # print(self.request.user.favourites.all())
         return self.request.user.favourites.all()
 
 def create_favourite_book(request, pk):

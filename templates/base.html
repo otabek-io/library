@@ -40,7 +40,7 @@
                                 <div class="mobile-user-menu-wrap user-menu-wrap">
                                     <button class="mobile-user-toggle user-toggle" type="button" aria-expanded="false" data-user-toggle>
                                         <i class="fas fa-user-circle"></i>
-                                        <span>{{ user.first_name|default:user.username }}</span>
+                                        <span>{{ user.first_name|default:'profile'}}</span>
                                     </button>
                                     <div class="mobile-user-dropdown user-dropdown" data-user-dropdown>
                                         <a href="{% url 'profile' user.pk %}" class="mobile-user-item">

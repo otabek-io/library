@@ -251,3 +251,24 @@ document.addEventListener('DOMContentLoaded', function() {
         }
     }
 });
+const menu = document.querySelector('#mobile-menu');
+const menuLinks = document.querySelector('.nav-menu');
+
+menu.addEventListener('click', function() {
+    menu.classList.toggle('is-active');
+    menuLinks.classList.toggle('active');
+});
+
+// Link bosilganda menyu yopilishi uchun (bir sahifali sayt bo'lsa)
+document.querySelectorAll('.nav-link').forEach(n => n.addEventListener('click', () => {
+    menu.classList.remove('is-active');
+    menuLinks.classList.remove('active');
+}));
+
+const menuBtn = document.getElementById('menuBtn');
+const navLinks = document.getElementById('navLinks');
+
+menuBtn.addEventListener('click', () => {
+    menuBtn.classList.toggle('active'); // Burger animatsiyasi uchun
+    navLinks.classList.toggle('show');  // Menyu chiqishi uchun
+});

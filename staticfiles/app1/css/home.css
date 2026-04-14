@@ -1,73 +1,240 @@
-/* Hero Section dizayni */
-.hero-section {
-    background: linear-gradient(135deg, var(--secondary-color) 0%, var(--primary-color) 100%);
-    padding: 100px 0;
-    color: white;
-    margin-top: 0 !important; /* Navbarga yopishishi uchun */
+.home-page {
+    background: linear-gradient(180deg, #eef4ff 0%, #f8fafc 42%, #ffffff 100%);
+}
+
+.home-page .hero-section {
     position: relative;
+    background: linear-gradient(130deg, #1d4ed8 0%, #2563eb 44%, #0ea5e9 100%);
+    color: #fff !important;
     overflow: hidden;
+    margin: 1.2rem 0 2rem;
+    border-radius: 28px;
+    padding: 88px 0 76px;
+    box-shadow: 0 25px 45px -28px rgba(29, 78, 216, 0.75);
 }
 
-.hero-section h1 {
-    color: white; /* base.css dagi gradient textni bu yerda oq qilamiz */
-    -webkit-text-fill-color: white;
-    font-weight: 800;
-}
-
-.hero-section::after {
-    content: '';
+.home-page .hero-section::before,
+.home-page .hero-section::after {
+    content: "";
     position: absolute;
-    bottom: -50px;
-    right: -50px;
-    width: 300px;
-    height: 300px;
-    background: rgba(255, 255, 255, 0.05);
     border-radius: 50%;
+    filter: blur(50px);
+    pointer-events: none;
 }
 
-/* Stat kartalari */
-.stat-card {
-    background: var(--bg-card);
-    padding: 30px;
-    border-radius: var(--border-radius);
-    box-shadow: var(--box-shadow);
-    transition: transform 0.3s ease;
+.home-page .hero-section::before {
+    width: 280px;
+    height: 280px;
+    top: -90px;
+    left: -90px;
+    background: rgba(191, 219, 254, 0.7);
 }
 
-.stat-card:hover {
-    transform: translateY(-10px);
+.home-page .hero-section::after {
+    width: 360px;
+    height: 360px;
+    right: -120px;
+    bottom: -140px;
+    background: rgba(196, 181, 253, 0.65);
 }
 
-/* Kitob kartalari */
-.book-card {
-    transition: all 0.3s ease;
+.home-page .hero-content {
+    position: relative;
+    z-index: 1;
+}
+
+.home-page .hero-content h1 {
+    color: #fff !important;
+    -webkit-text-fill-color: #fff !important;
+    font-weight: 900;
+    letter-spacing: -0.03em;
+}
+
+.home-page .hero-content .lead {
+    max-width: 760px;
+    margin-inline: auto;
+    color: rgba(255, 255, 255, 0.92);
+}
+
+.home-page .hero-btns {
+    display: inline-flex;
+    gap: 12px;
+    flex-wrap: wrap;
+}
+
+.home-page .hero-btns .btn {
+    border-radius: 999px;
+    padding: 0.78rem 1.25rem;
+    font-weight: 700;
+}
+
+.home-page .stats-section {
+    padding-top: 1.2rem !important;
+}
+
+.home-page .stat-card {
+    background: #ffffff;
+    border-radius: 20px;
+    padding: 1.6rem 1rem;
+    border: 1px solid #dbeafe;
+    box-shadow: 0 16px 30px -22px rgba(15, 23, 42, 0.45);
+    transition: transform 0.24s ease, box-shadow 0.24s ease;
+}
+
+.home-page .stat-card:hover {
+    transform: translateY(-6px);
+    box-shadow: 0 24px 38px -24px rgba(15, 23, 42, 0.55);
+}
+
+.home-page .stat-card i {
+    color: #2563eb !important;
+}
+
+.home-page .featured-books {
+    background: transparent !important;
+    padding-top: 2rem !important;
+}
+
+.home-page .section-header h2 {
+    font-weight: 800;
+    letter-spacing: -0.02em;
+}
+
+.home-page .section-header .btn-link {
+    color: #1d4ed8;
+    font-weight: 600;
+}
+
+.home-page .book-card {
+    background: #ffffff;
+    border-radius: 18px;
     overflow: hidden;
+    box-shadow: 0 10px 22px -18px rgba(15, 23, 42, 0.55);
+    transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+    position: relative;
+    border: 1px solid rgba(226, 232, 240, 0.8);
+    display: flex;
+    flex-direction: column;
+    width: 100%; /* Home sahifasida konteynerga moslashishi uchun */
+    margin-bottom: 20px;
 }
 
-.book-card img {
-    height: 300px;
-    object-fit: cover;
-    transition: transform 0.5s ease;
+.home-page .book-card:hover {
+    transform: translateY(-8px);
+    box-shadow: 0 20px 36px -22px rgba(79, 70, 229, 0.35);
+    border-color: rgba(79, 70, 229, 0.2);
 }
-
-.book-card:hover img {
-    transform: scale(1.1);
-}
-
-.book-overlay {
-    position: absolute;
-    top: 0;
-    left: 0;
+.home-page .book-card .card-img-top {
     width: 100%;
-    height: 100%;
-    background: rgba(67, 97, 238, 0.7);
+    aspect-ratio: 3 / 4;
+    object-fit: cover;
+    transition: transform 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+    display: block;
+}
+
+.home-page .book-card:hover .card-img-top {
+    transform: scale(1.08) rotate(1deg);
+}
+.home-page .book-overlay {
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(to top, rgba(15, 23, 42, 0.8) 0%, rgba(15, 23, 42, 0.2) 100%);
     display: flex;
     align-items: center;
     justify-content: center;
     opacity: 0;
-    transition: opacity 0.3s ease;
+    transition: all 0.4s ease;
+    backdrop-filter: blur(2px);
+    z-index: 2;
 }
 
-.book-card:hover .book-overlay {
-    opacity: 1;
+.home-page .book-card:hover .book-overlay .btn {
+    transform: translateY(0);
+}
+.home-page .book-card .card-body {
+    padding: 16px;
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    background: white;
+}
+.home-page .book-card .card-title {
+    font-size: 1.05rem;
+    font-weight: 800;
+    margin-bottom: 8px;
+    line-height: 1.4;
+    color: #0f172a;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+}
+.home-page .book-overlay .btn {
+    transform: translateY(24px);
+    transition: transform 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+}
+.home-page .book-card .card-text {
+    color: #64748b; /* muted text */
+    font-size: 0.85rem;
+    margin-bottom: 12px;
+    font-weight: 500;
+}
+.home-page .category-badge {
+    display: inline-block;
+    color: #4f46e5;
+    font-weight: 700;
+    background: rgba(79, 70, 229, 0.08);
+    padding: 4px 10px;
+    border-radius: 100px;
+    font-size: 0.7rem;
+    text-transform: uppercase;
+    margin-bottom: 8px;
+}
+
+.home-page .book-card:hover .book-overlay .btn {
+    transform: translateY(0);
+}
+
+.home-page [data-aos] {
+    opacity: 1 !important;
+    transform: none !important;
+}
+
+@media (max-width: 992px) {
+    .home-page .hero-section {
+        border-radius: 22px;
+        padding: 72px 0 62px;
+    }
+}
+
+@media (max-width: 768px) {
+    .home-page .hero-section {
+        margin-top: 0.8rem;
+        border-radius: 16px;
+        padding: 56px 0 48px;
+    }
+
+    .home-page .hero-content h1 {
+        font-size: clamp(1.8rem, 7vw, 2.3rem);
+    }
+
+    .home-page .hero-content .lead {
+        font-size: 0.98rem;
+    }
+
+    .home-page .hero-btns {
+        width: 100%;
+        flex-direction: column;
+    }
+
+    .home-page .hero-btns .btn {
+        width: 100%;
+        margin-right: 0 !important;
+    }
+
+    .home-page .section-header {
+        flex-direction: column;
+        align-items: flex-start !important;
+        gap: 8px;
+    }
 }

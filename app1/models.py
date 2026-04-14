@@ -20,6 +20,7 @@ class Book(models.Model):
     description = models.TextField()
     author = models.CharField(max_length=100)
     image = models.ImageField(upload_to='books/images/', validators=[FileExtensionValidator(allowed_extensions=['jpg', 'png', 'jpeg', 'bmp'])])
+    url = models.URLField(unique=True, null=True, blank=True, default=None)
     book_file = models.FileField(upload_to='books/files/', validators=[FileExtensionValidator(allowed_extensions=['pdf', 'doc', 'docx', 'txt'])])
     creator = models.ForeignKey(CustomUser, on_delete=models.PROTECT, null=True, blank=True)
     likes = models.ManyToManyField(CustomUser, blank=True, related_name='likes')
@@ -69,7 +70,3 @@ class Rating(models.Model):
     )
     class Meta:
         unique_together = (('book', 'author'),)
-
-    def __str__(self):
-        return f"{self.user.first_name} - {self.stars} stars"
-

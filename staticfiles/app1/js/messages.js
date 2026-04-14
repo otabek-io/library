@@ -1,72 +1,71 @@
-// messages.js - Sodda versiya
+// messages.js - Professional versiya
 
-// Auto dismiss function
 function setupMangaAlerts() {
-    document.querySelectorAll('.manga-alert[data-auto-dismiss]').forEach(alert => {
-        const dismissTime = parseInt(alert.getAttribute('data-auto-dismiss')) || 5000;
+    document.querySelectorAll('.manga-toast[data-auto-dismiss]').forEach(toast => {
+        const dismissTime = parseInt(toast.getAttribute('data-auto-dismiss')) || 5000;
 
-        // Start progress bar
-        const progressBar = alert.querySelector('.manga-alert-progress-bar');
+        // Progress bar animatsiyasiga vaqt berish
+        const progressBar = toast.querySelector('.manga-toast-progress-bar');
         if (progressBar) {
-            progressBar.style.animationDuration = dismissTime + 'ms';
+            progressBar.style.animationDuration = `${dismissTime}ms`;
         }
 
-        // Auto dismiss timer
+        // Avtomatik yopilish taymeri
         const timer = setTimeout(() => {
-            closeMangaAlert(alert.querySelector('.manga-alert-close'));
+            closeMangaToast(toast);
         }, dismissTime);
 
-        // Store timer reference
-        alert.dataset.timerId = timer;
+        toast.dataset.timerId = timer;
 
-        // Pause on hover
-        alert.addEventListener('mouseenter', function() {
-            const progressBar = this.querySelector('.manga-alert-progress-bar');
-            if (progressBar) {
-                progressBar.style.animationPlayState = 'paused';
-            }
-            if (this.dataset.timerId) {
-                clearTimeout(parseInt(this.dataset.timerId));
-            }
+        // Sichqoncha borganda vaqtni to'xtatish
+        toast.addEventListener('mouseenter', function() {
+            if (progressBar) progressBar.style.animationPlayState = 'paused';
+            if (this.dataset.timerId) clearTimeout(parseInt(this.dataset.timerId));
         });
 
-        // Resume on mouse leave
-        alert.addEventListener('mouseleave', function() {
-            const progressBar = this.querySelector('.manga-alert-progress-bar');
-            if (progressBar) {
-                progressBar.style.animationPlayState = 'running';
-            }
+        // Sichqoncha olinganda vaqtni davom ettirish
+        toast.addEventListener('mouseleave', function() {
+            if (progressBar) progressBar.style.animationPlayState = 'running';
 
-            const dismissTime = parseInt(this.getAttribute('data-auto-dismiss')) || 5000;
-            const remainingTime = dismissTime * (progressBar.offsetWidth / progressBar.parentElement.offsetWidth);
+            // Qolgan vaqtni hisoblash va yangi taymer qo'yish
+            const computedStyle = window.getComputedStyle(progressBar);
+            const matrix = new WebKitCSSMatrix(computedStyle.transform);
+            const remainingScale = matrix.a; // scaleX qiymatini olish
+            const remainingTime = dismissTime * remainingScale;
 
             this.dataset.timerId = setTimeout(() => {
-                closeMangaAlert(this.querySelector('.manga-alert-close'));
+                closeMangaToast(toast);
             }, remainingTime);
         });
+
+        // Yopish tugmasiga hodisa qo'shish
+        const closeBtn = toast.querySelector('.manga-toast-close');
+        if (closeBtn) {
+            closeBtn.addEventListener('click', () => closeMangaToast(toast));
+        }
     });
 }
 
-// Close alert function
-function closeMangaAlert(closeBtn) {
-    const alert = closeBtn.closest('.manga-alert');
-    if (!alert) return;
+function closeMangaToast(toast) {
+    if (!toast || toast.classList.contains('closing')) return;
 
-    // Clear timer if exists
-    if (alert.dataset.timerId) {
-        clearTimeout(parseInt(alert.dataset.timerId));
+    toast.classList.add('closing');
+
+    // Taymerni tozalash
+    if (toast.dataset.timerId) {
+        clearTimeout(parseInt(toast.dataset.timerId));
     }
 
-    // Add exit animation
-    alert.style.animation = 'mangaAlertOut 0.5s cubic-bezier(0.4, 0, 0.2, 1) forwards';
+    // Chiqib ketish animatsiyasini berish
+    toast.style.animation = 'slideOutRight 0.4s cubic-bezier(0.4, 0, 0.2, 1) forwards';
 
-    // Remove element after animation
+    // Animatsiya tugagandan so'ng HTML dan olib tashlash
     setTimeout(() => {
-        if (alert.parentNode) {
-            alert.parentNode.removeChild(alert);
+        if (toast.parentNode) {
+            toast.parentNode.removeChild(toast);
         }
-    }, 500);
+    }, 400);
 }
 
-// Initialize on page load
+// Sahifa yuklanganda ishga tushirish
 document.addEventListener('DOMContentLoaded', setupMangaAlerts);

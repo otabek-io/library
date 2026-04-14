@@ -1,189 +1,137 @@
-/* messages.css - Sodda versiya */
+/* messages.css - Premium versiya */
 
-/* Asosiy xabar */
-.manga-alert {
-    position: relative;
-    margin-bottom: 15px;
-    overflow: hidden;
-    border: none;
-    border-radius: 12px;
-    background: rgba(255, 255, 255, 0.95);
-    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
-    backdrop-filter: blur(10px);
-    overflow: hidden;
-    opacity: 0;
-    transform: translateY(-20px) scale(0.95);
-    animation: mangaAlertIn 0.6s cubic-bezier(0.68, -0.55, 0.27, 1.55) forwards;
-    border-left: 5px solid;
-}
-
-/* Manga Alert Entrance Animation */
-@keyframes mangaAlertIn {
-    0% {
-        opacity: 0;
-        transform: translateY(-20px) scale(0.95);
-    }
-    70% {
-        transform: translateY(5px) scale(1.02);
-    }
-    100% {
-        opacity: 1;
-        transform: translateY(0) scale(1);
-    }
-}
-
-/* Manga Alert Exit Animation */
-@keyframes mangaAlertOut {
-    0% {
-        opacity: 1;
-        transform: translateX(0) scale(1);
-    }
-    100% {
-        opacity: 0;
-        transform: translateX(100px) scale(0.8);
-    }
-}
-
-/* Message Types */
-.manga-alert.alert-success {
-    border-color: #10b981;
-    background: linear-gradient(135deg, rgba(16, 185, 129, 0.08), rgba(255, 255, 255, 0.95));
-}
-
-.manga-alert.alert-error,
-.manga-alert.alert-danger {
-    border-color: #ef4444;
-    background: linear-gradient(135deg, rgba(239, 68, 68, 0.08), rgba(255, 255, 255, 0.95));
-}
-
-.manga-alert.alert-warning {
-    border-color: #f59e0b;
-    background: linear-gradient(135deg, rgba(245, 158, 11, 0.08), rgba(255, 255, 255, 0.95));
-}
-
-.manga-alert.alert-info {
-    border-color: #3b82f6;
-    background: linear-gradient(135deg, rgba(59, 130, 246, 0.08), rgba(255, 255, 255, 0.95));
-}
-
-/* Alert Content */
-.manga-alert-content {
+/* Asosiy konteyner sahifa ustida turishi uchun */
+.toast-notification-container {
+    position: fixed;
+    top: 24px;
+    right: 24px;
+    z-index: 99999;
     display: flex;
-    align-items: center;
-    padding: 18px 50px 18px 20px;
+    flex-direction: column;
+    gap: 16px;
+    pointer-events: none; /* Orqa fondagi elementlarni bosish imkonini beradi */
+}
+
+/* Xabar dizayni */
+.manga-toast {
+    pointer-events: auto; /* Xabarning o'zini bosish mumkin */
     position: relative;
+    width: 360px;
+    background: rgba(255, 255, 255, 0.98);
+    backdrop-filter: blur(12px);
+    border-radius: 12px;
+    box-shadow: 0 10px 40px -10px rgba(0, 0, 0, 0.15), 0 1px 3px rgba(0, 0, 0, 0.05);
+    overflow: hidden;
+    transform: translateX(120%);
+    animation: slideInRight 0.5s cubic-bezier(0.68, -0.55, 0.265, 1.55) forwards;
+    border-left: 6px solid transparent;
 }
 
-/* Manga Icon */
-.manga-alert-icon {
-    font-size: 24px;
-    margin-right: 15px;
-    line-height: 1;
-    animation: mangaIconPop 0.5s ease-out 0.3s both;
+/* Kirish va chiqish animatsiyalari */
+@keyframes slideInRight {
+    from { transform: translateX(120%); opacity: 0; }
+    to { transform: translateX(0); opacity: 1; }
 }
 
-@keyframes mangaIconPop {
-    0% {
-        transform: scale(0);
-        opacity: 0;
-    }
-    70% {
-        transform: scale(1.2);
-    }
-    100% {
-        transform: scale(1);
-        opacity: 1;
-    }
+@keyframes slideOutRight {
+    from { transform: translateX(0); opacity: 1; }
+    to { transform: translateX(120%); opacity: 0; }
 }
 
-/* Alert Text */
-.manga-alert-text {
+/* Xabar holatlari ranglari */
+.toast-success { border-left-color: #10b981; }
+.toast-error, .toast-danger { border-left-color: #ef4444; }
+.toast-warning { border-left-color: #f59e0b; }
+.toast-info { border-left-color: #3b82f6; }
+
+.toast-success .manga-toast-icon { color: #10b981; }
+.toast-error .manga-toast-icon, .toast-danger .manga-toast-icon { color: #ef4444; }
+.toast-warning .manga-toast-icon { color: #f59e0b; }
+.toast-info .manga-toast-icon { color: #3b82f6; }
+
+/* Content qismi */
+.manga-toast-content {
+    display: flex;
+    align-items: flex-start;
+    padding: 16px 20px;
+}
+
+.manga-toast-icon {
+    font-size: 22px;
+    margin-right: 16px;
+    margin-top: 2px;
+    animation: popIn 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275) 0.2s both;
+}
+
+@keyframes popIn {
+    0% { transform: scale(0); opacity: 0; }
+    100% { transform: scale(1); opacity: 1; }
+}
+
+.manga-toast-text {
     flex: 1;
     font-size: 15px;
     font-weight: 500;
-    color: #1f2937;
+    color: #374151;
     line-height: 1.5;
+    padding-right: 24px; /* Yopish tugmasi uchun joy */
 }
 
-/* Close Button */
-.manga-alert-close {
+/* Yopish tugmasi */
+.manga-toast-close {
     position: absolute;
-    top: 15px;
-    right: 15px;
-    width: 32px;
-    height: 32px;
+    top: 14px;
+    right: 14px;
+    background: transparent;
     border: none;
-    background: rgba(0, 0, 0, 0.05);
-    border-radius: 50%;
+    color: #9ca3af;
     cursor: pointer;
+    width: 28px;
+    height: 28px;
+    border-radius: 50%;
     display: flex;
     align-items: center;
     justify-content: center;
-    color: #6b7280;
-    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-    padding: 0;
+    transition: all 0.2s ease;
 }
 
-.manga-alert-close:hover {
-    background: rgba(0, 0, 0, 0.1);
-    transform: rotate(90deg) scale(1.1);
-    color: #374151;
+.manga-toast-close:hover {
+    background: #f3f4f6;
+    color: #1f2937;
+    transform: rotate(90deg);
 }
 
-.manga-alert-close svg {
-    width: 14px;
-    height: 14px;
-}
-
-/* Progress Bar */
-.manga-alert-progress {
-    position: absolute;
-    bottom: 0;
-    left: 0;
+/* Progress bar (Vaqt o'lchagich) */
+.manga-toast-progress {
     width: 100%;
     height: 4px;
-    background: rgba(0, 0, 0, 0.05);
-    overflow: hidden;
+    background: rgba(0, 0, 0, 0.04);
 }
 
-.manga-alert-progress-bar {
+.manga-toast-progress-bar {
     height: 100%;
     width: 100%;
     transform-origin: left;
-    animation: mangaProgress 5s linear forwards;
+    animation: progressShrink linear forwards;
 }
 
-/* Progress Bar Colors */
-.alert-success .manga-alert-progress-bar {
-    background: linear-gradient(90deg, #10b981, #34d399);
+.toast-success .manga-toast-progress-bar { background: #10b981; }
+.toast-error .manga-toast-progress-bar, .toast-danger .manga-toast-progress-bar { background: #ef4444; }
+.toast-warning .manga-toast-progress-bar { background: #f59e0b; }
+.toast-info .manga-toast-progress-bar { background: #3b82f6; }
+
+@keyframes progressShrink {
+    from { transform: scaleX(1); }
+    to { transform: scaleX(0); }
 }
 
-.alert-error .manga-alert-progress-bar,
-.alert-danger .manga-alert-progress-bar {
-    background: linear-gradient(90deg, #ef4444, #f87171);
-}
-
-.alert-warning .manga-alert-progress-bar {
-    background: linear-gradient(90deg, #f59e0b, #fbbf24);
-}
-
-.alert-info .manga-alert-progress-bar {
-    background: linear-gradient(90deg, #3b82f6, #60a5fa);
-}
-
-/* Progress Animation */
-@keyframes mangaProgress {
-    0% {
-        transform: scaleX(1);
+@media (max-width: 480px) {
+    .toast-notification-container {
+        top: 16px;
+        right: 16px;
+        left: 16px;
     }
-    100% {
-        transform: scaleX(0);
+    .manga-toast {
+        width: 100%;
     }
-}
-
-/* Hover Effects */
-.manga-alert:hover {
-    transform: translateY(-2px);
-    box-shadow: 0 12px 40px rgba(0, 0, 0, 0.15);
-    transition: all 0.3s ease;
 }

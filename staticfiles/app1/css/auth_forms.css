@@ -1,0 +1,238 @@
+/* --- Authentication & Security Forms --- */
+.auth-wrapper {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 60px 20px;
+    min-height: 80vh;
+}
+
+.auth-card {
+    background: #ffffff;
+    width: 100%;
+    max-width: 420px;
+    border-radius: 24px;
+    border: 1px solid #e2e8f0;
+    box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.05), 0 10px 10px -5px rgba(0, 0, 0, 0.02);
+    padding: 40px;
+}
+
+.auth-header {
+    text-align: center;
+    margin-bottom: 30px;
+}
+
+.auth-icon {
+    width: 56px;
+    height: 56px;
+    background: #f0f9ff;
+    color: #0ea5e9;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 16px;
+    margin: 0 auto 15px;
+    font-size: 1.4rem;
+    border: 1px solid #e0f2fe;
+}
+
+.auth-header h2 {
+    font-size: 1.5rem;
+    font-weight: 800;
+    color: #0f172a;
+    letter-spacing: -0.02em;
+}
+
+.auth-header p {
+    font-size: 0.9rem;
+    color: #64748b;
+    margin-top: 5px;
+}
+
+/* Form Styling */
+.modern-form .form-group {
+    margin-bottom: 20px;
+}
+
+.modern-form label {
+    display: block;
+    font-size: 0.85rem;
+    font-weight: 700;
+    color: #334155;
+    margin-bottom: 8px;
+}
+
+/* Django Password Inputs */
+.modern-form input[type="password"],
+.modern-form input[type="text"] {
+    width: 100%;
+    padding: 12px 16px;
+    border-radius: 12px;
+    border: 1.5px solid #e2e8f0;
+    background: #f8fafc;
+    font-size: 0.95rem;
+    transition: all 0.2s ease;
+    box-sizing: border-box;
+}
+
+.modern-form input:focus {
+    outline: none;
+    border-color: #0ea5e9;
+    background: #ffffff;
+    box-shadow: 0 0 0 4px rgba(14, 165, 233, 0.1);
+}
+
+/* Django help text styling - juda muhim! */
+.field-help {
+    font-size: 0.75rem;
+    color: #94a3b8;
+    margin-top: 6px;
+    line-height: 1.4;
+}
+
+.field-help ul {
+    padding-left: 15px;
+    margin-top: 5px;
+}
+
+.error-msg {
+    display: block;
+    color: #ef4444;
+    font-size: 0.8rem;
+    font-weight: 600;
+    margin-top: 8px;
+    padding: 8px 12px;
+    background: #fef2f2;
+    border-radius: 8px;
+}
+
+/* Actions */
+.auth-actions {
+    margin-top: 30px;
+}
+
+.btn-submit {
+    width: 100%;
+    background: #0f172a;
+    color: white;
+    border: none;
+    padding: 14px;
+    border-radius: 12px;
+    font-weight: 700;
+    font-size: 0.95rem;
+    cursor: pointer;
+    transition: all 0.2s;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+}
+
+.btn-submit:hover {
+    background: #1e293b;
+    transform: translateY(-2px);
+    box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
+}
+
+.auth-links {
+    margin-top: 20px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+}
+
+.link-forgot, .link-cancel {
+    font-size: 0.85rem;
+    font-weight: 600;
+    color: #64748b;
+    text-decoration: none;
+    transition: color 0.2s;
+}
+
+.link-forgot:hover { color: #0ea5e9; }
+.link-cancel:hover { color: #0f172a; }
+
+.dot {
+    width: 4px;
+    height: 4px;
+    background: #cbd5e1;
+    border-radius: 50%;
+}
+
+/* Adaptive */
+@media (max-width: 480px) {
+    .auth-card {
+        padding: 30px 20px;
+    }
+}
+
+/* --- Reset Mini Version --- */
+.reset-mini {
+    max-width: 380px !important; /* Yanada ixchamroq */
+    padding: 35px !important;
+}
+
+.input-with-icon {
+    position: relative;
+    display: flex;
+    align-items: center;
+}
+
+.input-with-icon i {
+    position: absolute;
+    left: 15px;
+    color: #94a3b8;
+    font-size: 0.9rem;
+}
+
+/* Input ichidagi bo'shliqni ikonka uchun to'g'irlash */
+.input-with-icon input {
+    padding-left: 45px !important;
+}
+
+.btn-reset {
+    display: flex;
+    justify-content: space-between; /* Matn va ikonka ikki chetda */
+    padding: 14px 20px !important;
+    background: #2563eb !important;
+}
+
+.btn-reset i {
+    font-size: 0.8rem;
+    transition: transform 0.2s;
+}
+
+.btn-reset:hover i {
+    transform: translateX(5px); /* Tugma ustiga borganda o'ngga suriladi */
+}
+
+.auth-subtitle {
+    font-size: 0.85rem !important;
+    color: #64748b;
+    margin-top: 8px;
+}
+
+/* Xatolik xabari ixchamroq */
+.error-msg {
+    background: none !important;
+    color: #ef4444 !important;
+    padding: 5px 0 0 5px !important;
+    font-size: 0.75rem !important;
+}
+
+/* register.css uchun */
+@media (max-width: 500px) {
+    .form-container, .auth-wrapper {
+        padding: 20px 10px !important;
+    }
+
+    .form, .auth-card {
+        padding: 25px 20px !important;
+        border-radius: 15px !important;
+    }
+
+    .form-title, .auth-header h2 {
+        font-size: 1.2rem !important;
+    }
+}
