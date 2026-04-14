@@ -27,7 +27,7 @@ class CustomUserManager(BaseUserManager):
 class CustomUser(AbstractUser):
     username = None
     email = models.EmailField(unique=True)
-    REQUIRED_FIELDS = ['email']
+    REQUIRED_FIELDS = []
     USERNAME_FIELD = 'email'
 
     objects = CustomUserManager()
