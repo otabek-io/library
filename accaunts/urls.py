@@ -13,7 +13,7 @@ from django.urls import path
 urlpatterns = [
     path('login/', Login.as_view(), name='login'),
     path('signup/', SignUpView.as_view(), name='signup'),
-    path('profile/<int:pk>/', ProfileView.as_view(), name='profile'),
+    path('profile/', ProfileView.as_view(), name='profile'),
     path('logout/', LogoutView.as_view(), name='logout'),
     path('profile/update/', ProfileUpdate.as_view(), name='profile-update'),
     path('password_change/', PasswordChangeView.as_view(template_name='registration/password_change.html'), name='password-change'),

@@ -69,7 +69,7 @@ class BookDetailView(DetailView,FormMixin):
                 author=request.user,
                 defaults={'stars': int(stars)}
             )
-            return redirect('book-detail', pk=self.object.pk)
+            return redirect('book-detail', slug=self.object.slug)
 
         form = self.get_form()
         if form.is_valid():
@@ -77,7 +77,7 @@ class BookDetailView(DetailView,FormMixin):
             comment.author = request.user
             comment.book = self.object
             comment.save()
-            return redirect('book-detail', pk=self.object.pk)
+            return redirect('book-detail', slug=self.object.slug)
 
         return self.render_to_response(self.get_context_data(form=form))
     def get_context_data(self, **kwargs):

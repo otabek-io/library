@@ -28,6 +28,9 @@ class ProfileView(DetailView):
     template_name = 'registration/profile.html'
     context_object_name = 'profile'
 
+    def get_object(self, queryset=None):
+        return self.request.user
+
 class ProfileUpdate(LoginRequiredMixin, UserPassesTestMixin, UpdateView):
     model = CustomUser
     form_class = UpdateProfileForm

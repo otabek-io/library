@@ -43,7 +43,7 @@
                                         <span>{{ user.first_name|default:'profile'}}</span>
                                     </button>
                                     <div class="mobile-user-dropdown user-dropdown" data-user-dropdown>
-                                        <a href="{% url 'profile' user.pk %}" class="mobile-user-item">
+                                        <a href="{% url 'profile' %}" class="mobile-user-item">
                                             <i class="fas fa-user"></i> Profil
                                         </a>
                                         <a href="{% url 'favourites' %}" class="mobile-user-item">
@@ -113,7 +113,7 @@
                                     <span>{{ user.first_name|default:user.username }}</span>
                                 </button>
                                 <div class="user-dropdown desktop-user-dropdown" data-user-dropdown>
-                                    <a href="{% url 'profile' user.pk %}" class="mobile-user-item">
+                                    <a href="{% url 'profile' %}" class="mobile-user-item">
                                         <i class="fas fa-user"></i> Profil
                                     </a>
                                     <a href="{% url 'favourites' %}" class="mobile-user-item">

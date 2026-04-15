@@ -1,11 +1,11 @@
 from django.db import models
-import io
+import io, uuid
 from PIL import Image
 from django.core.files.base import ContentFile
 from django.core.validators import FileExtensionValidator, MinValueValidator, MaxValueValidator
 from accaunts.models import CustomUser
 from django.db.models import Avg
-
+from django.utils.text import slugify
 
 class Category(models.Model):
     name = models.CharField(max_length=100, default='tanla')
@@ -16,6 +16,8 @@ class Category(models.Model):
 
 class Book(models.Model):
     name = models.CharField(max_length=100)
+    slug = models.SlugField(unique=True, null=True, blank=True)
+    author = models.ForeignKey(CustomUser, on_delete=models.PROTECT, null=True, blank=True)
     category = models.ForeignKey(Category, on_delete=models.CASCADE, related_name='books')
     description = models.TextField()
     author = models.CharField(max_length=100)
@@ -33,6 +35,12 @@ class Book(models.Model):
         img.save(output, format='JPEG', quality=70)
         output.seek(0)
         self.image = ContentFile(output.read(), name=self.image.name)
+
+        if not self.slug:
+            self.slug = slugify(self.name)
+            if Book.objects.filter(slug=self.slug).exists():
+                self.slug = f"{self.slug}-{str(uuid.uuid4())[:4]}"
+
         super().save(*args, **kwargs)
 
     def __str__(self):
