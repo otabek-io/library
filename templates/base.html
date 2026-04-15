@@ -219,5 +219,94 @@
                 offset: 100
             });
         </script>
+        <!-- FOOTER SECTION -->
+    <footer class="library-footer">
+        <div class="container">
+            <div class="row gy-4">
+                <!-- Kutubxona haqida -->
+                <div class="col-lg-4 col-md-6" data-aos="fade-up">
+                    <div class="footer-about">
+                        <div class="footer-brand">
+                            <i class="fas fa-book-open"></i>
+                            <span>Kitoblar Olami</span>
+                        </div>
+                        <p class="footer-description">
+                            Siz izlayotgan har qanday kitobni topishingiz, sevimli asarlaringizni saqlashingiz va yangi bilimlar olishingiz mumkin bo'lgan ishonchli onlayn kutubxona.
+                        </p>
+
+                    </div>
+                </div>
+
+                <!-- Tezkor havolalar -->
+                <div class="col-lg-2 col-md-6 col-6" data-aos="fade-up" data-aos-delay="100">
+                    <h4 class="footer-heading">Navigatsiya</h4>
+                    <ul class="footer-links">
+                        <li><a href="{% url 'home' %}"><i class="fas fa-chevron-right"></i> Bosh sahifa</a></li>
+                        <li><a href="{% url 'book-list' %}"><i class="fas fa-chevron-right"></i> Kitoblar ro'yxati</a></li>
+                        {% if user.is_authenticated %}
+                            <li><a href="{% url 'profile' %}"><i class="fas fa-chevron-right"></i> Profil</a></li>
+                            <li><a href="{% url 'favourites' %}"><i class="fas fa-chevron-right"></i> Sevimlilar</a></li>
+                        {% else %}
+                            <li><a href="{% url 'login' %}"><i class="fas fa-chevron-right"></i> Kirish</a></li>
+                            <li><a href="{% url 'signup' %}"><i class="fas fa-chevron-right"></i> Ro'yxatdan o'tish</a></li>
+                        {% endif %}
+                    </ul>
+                </div>
+
+                <!-- Yordam va qo'llab-quvvatlash -->
+                <div class="col-lg-3 col-md-6 col-6" data-aos="fade-up" data-aos-delay="200">
+                    <h4 class="footer-heading">Yordam</h4>
+                    <ul class="footer-links">
+                        <li><a href="#"><i class="fas fa-chevron-right"></i> FAQ</a></li>
+                        <li><a href="#"><i class="fas fa-chevron-right"></i> Foydalanish shartlari</a></li>
+                        <li><a href="#"><i class="fas fa-chevron-right"></i> Maxfiylik siyosati</a></li>
+                        <li><a href="#"><i class="fas fa-chevron-right"></i> Biz bilan bog'lanish</a></li>
+                        {% if user.is_staff %}
+                            <li><a href="{% url 'book-create' %}"><i class="fas fa-chevron-right"></i> Kitob qo'shish</a></li>
+                        {% endif %}
+                    </ul>
+                </div>
+
+                <!-- Ijtimoiy tarmoqlar -->
+                <div class="col-lg-3 col-md-6" data-aos="fade-up" data-aos-delay="300">
+                    <h4 class="footer-heading">Bizni kuzating</h4>
+                    <p class="footer-social-text">Eng so'nggi yangiliklar va kitoblar haqida xabardor bo'ling.</p>
+                    <div class="footer-social-icons">
+                        <a href="https://t.me/Otabekk_05" class="social-icon telegram" target="_blank" rel="noopener noreferrer" aria-label="Telegram">
+                            <i class="fab fa-telegram-plane"></i>
+                        </a>
+                        <a href="#" class="social-icon instagram" aria-label="Instagram">
+                            <i class="fab fa-instagram"></i>
+                        </a>
+                        <a href="#" class="social-icon facebook" aria-label="Facebook">
+                            <i class="fab fa-facebook-f"></i>
+                        </a>
+                        <a href="#" class="social-icon twitter" aria-label="Twitter">
+                            <i class="fab fa-twitter"></i>
+                        </a>
+                        <a href="#" class="social-icon youtube" aria-label="YouTube">
+                            <i class="fab fa-youtube"></i>
+                        </a>
+                    </div>
+                    <div class="footer-newsletter mt-3">
+                        <p class="mb-2">Yangiliklardan xabardor bo'ling</p>
+                        <form class="newsletter-form">
+                            <div class="input-group">
+                                <input type="email" class="form-control" placeholder="Email manzilingiz" aria-label="Email">
+                                <button class="btn btn-primary" type="submit">
+                                    <i class="fas fa-paper-plane"></i>
+                                </button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Orqaga qaytish tugmasi -->
+    <button class="scroll-to-top" id="scrollToTopBtn" aria-label="Yuqoriga qaytish">
+        <i class="fas fa-arrow-up"></i>
+    </button>
     </body>
     </html>

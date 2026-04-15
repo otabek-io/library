@@ -272,3 +272,29 @@ menuBtn.addEventListener('click', () => {
     menuBtn.classList.toggle('active'); // Burger animatsiyasi uchun
     navLinks.classList.toggle('show');  // Menyu chiqishi uchun
 });
+
+/* ========================================
+   FOOTER & SCROLL-TO-TOP (Yangi qo'shimcha)
+   ======================================== */
+// Scroll to top button funksiyasi
+(function() {
+    const scrollToTopBtn = document.getElementById('scrollToTopBtn');
+    if (scrollToTopBtn) {
+        const handleScroll = () => {
+            if (window.pageYOffset > 300) {
+                scrollToTopBtn.classList.add('visible');
+            } else {
+                scrollToTopBtn.classList.remove('visible');
+            }
+        };
+
+        window.addEventListener('scroll', handleScroll);
+
+        scrollToTopBtn.addEventListener('click', () => {
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        });
+
+        // Dastlabki holatni tekshirish
+        handleScroll();
+    }
+})();
