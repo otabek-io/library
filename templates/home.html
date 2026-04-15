@@ -71,7 +71,7 @@
         <div class="books-container grid-view">
             {% for book in latest_books %}
                 <article class="book-card" data-aos="fade-up" data-aos-delay="{{ forloop.counter0 }}00">
-                    <a href="{% url 'book-detail' book.id %}" class="book-cover-link">
+                    <a href="{% url 'book-detail' book.slug %}" class="book-cover-link">
                         <div class="book-image-wrapper">
                             {% if book.image %}
                                 <img src="{{ book.image.url }}" alt="{{ book.title }}">
@@ -95,7 +95,7 @@
                         </div>
 
                         <h3 class="book-title">
-                            <a href="{% url 'book-detail' book.id %}">{{ book.title }}</a>
+                            <a href="{% url 'book-detail' book.slug %}">{{ book.title }}</a>
                         </h3>
                         <p class="book-author"><i class="fas fa-pen-nib"></i> {{ book.author }}</p>
 
@@ -106,8 +106,10 @@
                                 <a href="#" class="btn-icon btn-edit" title="Tahrirlash">
                                     <i class="fas fa-edit"></i>
                                 </a>
-                                <a href="#" class="btn-icon btn-delete" title="O'chirish">
-                                    <i class="fas fa-trash-alt"></i>
+                                <a href="" class="btn-icon btn-delete" title="O'chirish">
+                                    <form method="post" action="{% url 'book-delete' book.slug %}">{% csrf_token %}
+                                        <button type="submit"  class="btn-icon btn-delete" title="O'chirish" onclick="return confirm('Haqiqatan ham ushbu kitobni o\'chirmoqchimisiz?');"><i class="fas fa-trash-alt"></i></button>
+                                    </form>
                                 </a>
                             </div>
                         {% endif %}

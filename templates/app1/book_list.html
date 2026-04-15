@@ -102,12 +102,11 @@
                                     <a href="{% url 'book-update' book.slug %}" class="btn-icon btn-edit" title="Tahrirlash">
                                         <i class="fas fa-edit"></i>
                                     </a>
-<!--                                    <a href="{% url 'book-delete' book.pk %}" class="btn-icon btn-delete" title="O'chirish" onclick="O'chirilsinmi?">-->
-<!--                                        <i class="fas fa-trash-alt"></i>-->
-<!--                                    </a>-->
-                                    <form method="post" action="{% url 'book-delete' book.slug %}">{% csrf_token %}
-                                        <button type="submit"  class="btn-icon btn-delete" title="O'chirish" onclick="return confirm('Haqiqatan ham ushbu kitobni o\'chirmoqchimisiz?');"><i class="fas fa-trash-alt"></i></button>
-                                    </form>
+                                     <a href="" class="btn-icon btn-delete" title="O'chirish">
+                                        <form method="post" action="{% url 'book-delete' book.slug %}">{% csrf_token %}
+                                            <button type="submit"  class="btn-icon btn-delete" title="O'chirish" onclick="return confirm('Haqiqatan ham ushbu kitobni o\'chirmoqchimisiz?');"><i class="fas fa-trash-alt"></i></button>
+                                        </form>
+                                    </a>
                                 </div>
                             {% endif %}
                         </div>
